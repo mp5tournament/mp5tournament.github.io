@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>感谢赞助MP5</title>
+
+<!-- 配置部分 -->
+<script type="text/javascript">
+// 配置数据
+const Player=`
+SzZzC	32630602	107.21×2
+[mogezi]	10483107	100
+Momoyaya	13859320	50
+Asatsuki Sakura	33407560	16.11
+-aLIEz-	31372295	5
+`
+
+const Staff=`
+Konge	2053450	161.1
+Pata-Mon	6149313	161.1
+Akisa 18	16134378	161.1
+Aurora_fang	9887164	100
+[SHK]T_T	13999223	61.66
+Pain boy	24579916	16.11
+wyrio	8984146	16.11
+`
+</script>
+
+    <style>
+@font-face {
+  font-family: 'cn';
+  src: url('https://mp5tournament.github.io/assets/shangshouruantang.ttf');
+}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "cn";
+        }
+
+        body {
+            width: 1920px;
+            height: 1080px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: radial-gradient( #a1a,#026);
+            background-size: 200% 200%;
+            animation: bgFlow 7.5s linear infinite;
+        }
+
+        @keyframes bgFlow {
+            0%, 100% { background-position: 0% 0%; }
+            32% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            82% { background-position: 0% 100%; }
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            padding: 30px 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 头部区域 - 单行布局 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            height: 80px;
+        }
+
+        .title {
+            font-size: 48px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .subtitle {
+            font-size: 28.25px;
+            color: #cccccc;
+            text-align: right;
+        }
+
+        .subtitle span{
+            font-size: 20px;
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* 主要内容区域 */
+        .main-content {
+            display: flex;
+            flex: 1;
+            gap: 30px;
+        }
+
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .user-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            flex: 1;
+        }
+
+        .user-card {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 10px;
+            padding: 12px 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 左侧玩家卡片使用橙色侧边条 */
+        .player-column .user-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+        }
+
+        /* 右侧工作人员卡片使用蓝色侧边条 */
+        .staff-column .user-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: linear-gradient(to bottom, #4facfe, #00f2fe);
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .username-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            gap: 10px;
+        }
+
+        .username {
+            font-size: 24px;
+        }
+
+        .role {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .amount {
+            font-size: 22px;
+        }
+        .player-column .amount{
+            color: rgba(255, 220, 160, 0.9);
+        }
+        .staff-column .amount{
+            color: rgba(160, 240, 255, 0.9);
+        }
+        .amount span{
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">感谢各位赞助MP5！</h1>
+            <div class="header-right">
+                <div class="subtitle">
+                    赞助MP5杯：查看赛群公告 或访问<br>
+                    <span>http://mp5tournament.github.io/s</span>
+                </div>
+                <div class="logo-container">
+                    <!-- 这里将显示MP5 logo -->
+                    <img src="https://mp5tournament.github.io/logo.png" alt="MP5 Logo" class="logo">
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="column player-column">
+                <div class="user-list" id="player-list">
+                    <!-- 玩家列表将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="column staff-column">
+                <div class="user-list" id="staff-list">
+                    <!-- 工作人员列表将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 逻辑部分 -->
+    <script type="text/javascript">
+        // 解析配置数据
+        function parseUserData(dataString) {
+            const lines = dataString.trim().split('\n');
+            return lines.map(line => {
+                const [username, user_id, amount] = line.split('\t');
+                return { username, user_id, amount };
+            });
+        }
+
+        // 创建用户卡片
+        function createUserCard(user, role) {
+            const userCard = document.createElement('div');
+            userCard.className = 'user-card';
+            
+            const avatar = document.createElement('img');
+            avatar.className = 'avatar';
+            avatar.src = `https://a.ppy.sh/${user.user_id}`;
+            avatar.alt = `${user.username}的头像`;
+            
+            const userInfo = document.createElement('div');
+            userInfo.className = 'user-info';
+            
+            const usernameContainer = document.createElement('div');
+            usernameContainer.className = 'username-container';
+            
+            const username = document.createElement('div');
+            username.className = 'username';
+            username.textContent = user.username;
+            
+            const roleElement = document.createElement('div');
+            roleElement.className = 'role';
+            roleElement.textContent = role;
+            
+            const amount = document.createElement('div');
+            amount.className = 'amount';
+            amount.innerHTML = `<span>Donate</span> ￥${user.amount}`;
+            
+            usernameContainer.appendChild(username);
+            usernameContainer.appendChild(roleElement);
+            
+            userInfo.appendChild(usernameContainer);
+            userInfo.appendChild(amount);
+            
+            userCard.appendChild(avatar);
+            userCard.appendChild(userInfo);
+            
+            return userCard;
+        }
+
+        // 初始化页面
+        function initPage() {
+            const playerList = document.getElementById('player-list');
+            const staffList = document.getElementById('staff-list');
+            
+            // 解析玩家数据
+            const players = parseUserData(Player);
+            players.forEach(player => {
+                playerList.appendChild(createUserCard(player, 'Player'));
+            });
+            
+            // 解析工作人员数据
+            const staff = parseUserData(Staff);
+            staff.forEach(staffMember => {
+                staffList.appendChild(createUserCard(staffMember, 'Staff'));
+            });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
