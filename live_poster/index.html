@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS等待界面</title>
+    
+    <!-- 配置部分 -->
+    <script type="text/javascript">
+        // 配置参数
+        const URL_List = [
+            'http://mp5tournament.github.io/live_poster/meowpad.webp',
+            'http://mp5tournament.github.io/live_poster/sponsor',
+            'http://mp5tournament.github.io/live_poster/qqgroup',
+            'http://mp5tournament.github.io/live_poster/sheet'
+        ];
+        const Rotation_Time = 5000;
+    </script>
+
+    <style>
+        .slide {
+            /* 淡入淡出过渡时间 */
+            transition: opacity 1s ease-in-out; 
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1920px;
+            height: 1080px;
+            opacity: 0;
+            object-fit: none;
+            object-position: left top;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+        }
+        
+        #container {
+            position: relative;
+            width: 1920px;
+            height: 1080px;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide img {
+            width: 1920px;
+            height: 1080px;
+            object-fit: none;
+            object-position: left top;
+        }
+        
+        .slide iframe {
+            width: 1920px;
+            height: 1080px;
+            border: none;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+    </div>
+    
+    <!-- 逻辑部分 -->
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('container');
+            let currentIndex = 0;
+            let slides = [];
+            
+            // 创建幻灯片元素
+            function createSlides() {
+                URL_List.forEach((url, index) => {
+                    const slide = document.createElement('div');
+                    slide.className = 'slide';
+                    
+                    // 判断URL类型并创建相应元素
+                    if (isImageUrl(url)) {
+                        const img = document.createElement('img');
+                        img.src = url;
+                        img.alt = `Slide ${index + 1}`;
+                        slide.appendChild(img);
+                    } else {
+                        const iframe = document.createElement('iframe');
+                        iframe.src = url;
+                        slide.appendChild(iframe);
+                    }
+                    
+                    container.appendChild(slide);
+                    slides.push(slide);
+                });
+                
+                // 显示第一个幻灯片
+                if (slides.length > 0) {
+                    slides[0].classList.add('active');
+                }
+            }
+            
+            // 判断URL是否为图片
+            function isImageUrl(url) {
+                return /\.(jpg|jpeg|png|gif|bmp|webp)(\?.*)?$/i.test(url);
+            }
+            
+            // 切换到下一个幻灯片
+            function nextSlide() {
+                if (slides.length <= 1) return;
+                
+                const currentSlide = slides[currentIndex];
+                currentSlide.classList.remove('active');
+                
+                currentIndex = (currentIndex + 1) % slides.length;
+                const nextSlide = slides[currentIndex];
+                nextSlide.classList.add('active');
+            }
+            
+            // 初始化
+            createSlides();
+            
+            // 设置轮播定时器
+            if (slides.length > 1) {
+                setInterval(nextSlide, Rotation_Time);
+            }
+        });
+    </script>
+</body>
+</html>
