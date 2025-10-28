@@ -22,7 +22,7 @@ const REDIRECT_URI = window.location.origin + window.location.pathname
 if (code) {
     // 从osu! API跳转回来，需要获取access_token
     handleCallback(code, state)
-} else if (state) {
+} else {
     // 用户首次访问，需要跳转到osu!授权页面
     handleInitialRequest(state)
 }
