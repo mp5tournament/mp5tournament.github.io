@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Authentication</title>
+<script type="text/javascript">
+// 定义合法的state值列表
+const validStates = ['teststate']
+
+// 解析URL参数
+const urlParams = new URLSearchParams(window.location.search)
+const state = urlParams.get('state')
+const code = urlParams.get('code')
+
+// 你的应用配置
+const CLIENT_ID = '11062'
+const REDIRECT_URI = window.location.origin + window.location.pathname
+
+// 处理逻辑
+if (code) {
+    // 从osu! API跳转回来，需要获取access_token
+    handleCallback(code, state)
+} else if (state) {
+    // 用户首次访问，需要跳转到osu!授权页面
+    handleInitialRequest(state)
+} else {
+    error()
+}
+
+function handleInitialRequest(state) {
+    if (!validStates.includes(state)) {
+        error()
+        return
+    }
+    
+    // 构建授权URL并跳转
+    const authUrl = new URL('https://osu.ppy.sh/oauth/authorize');
+    authUrl.searchParams.set('client_id', CLIENT_ID);
+    authUrl.searchParams.set('redirect_uri', REDIRECT_URI);
+    authUrl.searchParams.set('response_type', 'code');
+    authUrl.searchParams.set('scope', 'public identify');
+    authUrl.searchParams.set('state', state);
+    
+    window.location.href = authUrl.toString();
+}
+
+function handleCallback(code, state) {
+    if (!validStates.includes(state)) {
+        error()
+        return
+    }
+    
+    // 获取access_token
+    alert('获取成功：'+code)
+}
+
+
+function error(state=null){
+    if(state){
+        if(confirm('Verification failed, do you want to try again?\n验证失败，您是否要重试？'))handleInitialRequest(state)
+        else return
+    }
+    alert('Something seems wrong, please return or close this page.\n出现错误，请返回或关闭该网页。')
+}
+</script>
+</head>
+</html>
