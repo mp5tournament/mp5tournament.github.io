@@ -25,8 +25,6 @@ if (code) {
 } else if (state) {
     // 用户首次访问，需要跳转到osu!授权页面
     handleInitialRequest(state)
-} else {
-    error()
 }
 
 function handleInitialRequest(state) {
@@ -37,14 +35,14 @@ function handleInitialRequest(state) {
     }
     
     // 构建授权URL并跳转
-    const authUrl = new URL('https://osu.ppy.sh/oauth/authorize');
-    authUrl.searchParams.set('client_id', CLIENT_ID);
-    authUrl.searchParams.set('redirect_uri', REDIRECT_URI);
-    authUrl.searchParams.set('response_type', 'code');
-    authUrl.searchParams.set('scope', 'public identify');
-    authUrl.searchParams.set('state', state);
+    const authUrl = new URL('https://osu.ppy.sh/oauth/authorize')
+    authUrl.searchParams.set('client_id', CLIENT_ID)
+    authUrl.searchParams.set('redirect_uri', REDIRECT_URI)
+    authUrl.searchParams.set('response_type', 'code')
+    authUrl.searchParams.set('scope', 'public identify')
+    authUrl.searchParams.set('state', state)
     
-    window.location.href = authUrl.toString();
+    window.location.href = authUrl.toString()
 }
 
 function handleCallback(code, state) {
