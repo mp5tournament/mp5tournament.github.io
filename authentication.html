@@ -4,7 +4,10 @@
     <title>Authentication</title>
 <script type="text/javascript">
 // 定义合法的state值列表
-const validStates = ['teststate']
+const validStates = {
+    'teststate':'https://docs.google.com/forms/d/e/1FAIpQLSfiTp8ijhhTUk3GtcDNycFApbJfaAehl1wadg23ZU0Tgkohcw/viewform?usp=pp_url&entry.563050838=${code}',
+    'teststate2':'https://docs.google.com/',
+}
 
 // 解析URL参数
 const urlParams = new URLSearchParams(window.location.search)
@@ -27,7 +30,8 @@ if (code) {
 }
 
 function handleInitialRequest(state) {
-    if (!validStates.includes(state)) {
+    state = state || Object.entries(validStates)[0][0]
+    if (!validStates[state]) {
         error()
         return
     }
@@ -44,13 +48,13 @@ function handleInitialRequest(state) {
 }
 
 function handleCallback(code, state) {
-    if (!validStates.includes(state)) {
+    if (!validStates[state]) {
         error()
         return
     }
     
-    // 获取access_token
-    alert('获取成功：'+code)
+    const href = validStates[state].replace('${code}', code)
+    window.location.href = href
 }
 
 
