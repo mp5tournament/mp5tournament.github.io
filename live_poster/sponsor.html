@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>感谢赞助MP5</title>
 
-<!-- 配置部分 -->
-<script type="text/javascript">
-// 配置数据
-const Player=`
-SzZzC	32630602	107.21×2
-[mogezi]	10483107	100
-Momoyaya	13859320	50
-Asatsuki Sakura	33407560	16.11
--aLIEz-	31372295	5
+    <!-- 配置部分 -->
+    <script type="text/javascript">
+        // 配置数据
+        const Player = `
+wings_wacr	14970885	161.1
+SzZzC	32630602	107.21
+[ShiinaMashiro]	30198679	52
+NatsuRin	20653857	20
+Doubi_Wert	30512018	16.11
+Hoshino Tented	10984982	16.11
+xgj	37502395	16.11
+Zeguqi	28338466	16.11
 `
 
-const Staff=`
-Konge	2053450	161.1
+        const Staff = `
 Pata-Mon	6149313	161.1
-Akisa 18	16134378	161.1
-Aurora_fang	9887164	100
-[SHK]T_T	13999223	61.66
-Pain boy	24579916	16.11
-wyrio	8984146	16.11
+_Vientoluz	15154497	16.11
+Aurora_fang	9887164	16.11
+Azureus	6938658	16.11
+foraphe	9633566	16.11
+gxytcgxytc	874891	16.11
+XIAO Lingfeng	17522180	16.11
+Shiratori, [SHK]T_T, Pain boy	mp5	7+5+5
 `
-</script>
+    </script>
 
     <style>
-@font-face {
-  font-family: 'cn';
-  src: url('https://mp5tournament.github.io/assets/shangshouruantang.ttf');
-}
+        @font-face {
+            font-family: 'cn';
+            src: url('https://mp5tournament.github.io/assets/shangshouruantang.ttf');
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -50,16 +56,29 @@ wyrio	8984146	16.11
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            background: radial-gradient( #a1a,#026);
+            background: radial-gradient(#a1a, #026);
             background-size: 200% 200%;
             animation: bgFlow 7.5s linear infinite;
         }
 
         @keyframes bgFlow {
-            0%, 100% { background-position: 0% 0%; }
-            32% { background-position: 100% 0%; }
-            50% { background-position: 100% 100%; }
-            82% { background-position: 0% 100%; }
+
+            0%,
+            100% {
+                background-position: 0% 0%;
+            }
+
+            32% {
+                background-position: 100% 0%;
+            }
+
+            50% {
+                background-position: 100% 100%;
+            }
+
+            82% {
+                background-position: 0% 100%;
+            }
         }
 
         .container {
@@ -96,7 +115,7 @@ wyrio	8984146	16.11
             text-align: right;
         }
 
-        .subtitle span{
+        .subtitle span {
             font-size: 20px;
         }
 
@@ -204,17 +223,21 @@ wyrio	8984146	16.11
         .amount {
             font-size: 22px;
         }
-        .player-column .amount{
+
+        .player-column .amount {
             color: rgba(255, 220, 160, 0.9);
         }
-        .staff-column .amount{
+
+        .staff-column .amount {
             color: rgba(160, 240, 255, 0.9);
         }
-        .amount span{
+
+        .amount span {
             font-size: 16px;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -230,14 +253,14 @@ wyrio	8984146	16.11
                 </div>
             </div>
         </div>
-        
+
         <div class="main-content">
             <div class="column player-column">
                 <div class="user-list" id="player-list">
                     <!-- 玩家列表将通过JavaScript动态生成 -->
                 </div>
             </div>
-            
+
             <div class="column staff-column">
                 <div class="user-list" id="staff-list">
                     <!-- 工作人员列表将通过JavaScript动态生成 -->
@@ -261,39 +284,39 @@ wyrio	8984146	16.11
         function createUserCard(user, role) {
             const userCard = document.createElement('div');
             userCard.className = 'user-card';
-            
+
             const avatar = document.createElement('img');
             avatar.className = 'avatar';
-            avatar.src = `https://a.ppy.sh/${user.user_id}`;
+            avatar.src = user.user_id == 'mp5' ? 'https://mp5tournament.github.io/logo.png' : `https://a.ppy.sh/${user.user_id}`;
             avatar.alt = `${user.username}的头像`;
-            
+
             const userInfo = document.createElement('div');
             userInfo.className = 'user-info';
-            
+
             const usernameContainer = document.createElement('div');
             usernameContainer.className = 'username-container';
-            
+
             const username = document.createElement('div');
             username.className = 'username';
             username.textContent = user.username;
-            
+
             const roleElement = document.createElement('div');
             roleElement.className = 'role';
             roleElement.textContent = role;
-            
+
             const amount = document.createElement('div');
             amount.className = 'amount';
             amount.innerHTML = `<span>Donate</span> ￥${user.amount}`;
-            
+
             usernameContainer.appendChild(username);
             usernameContainer.appendChild(roleElement);
-            
+
             userInfo.appendChild(usernameContainer);
             userInfo.appendChild(amount);
-            
+
             userCard.appendChild(avatar);
             userCard.appendChild(userInfo);
-            
+
             return userCard;
         }
 
@@ -301,13 +324,13 @@ wyrio	8984146	16.11
         function initPage() {
             const playerList = document.getElementById('player-list');
             const staffList = document.getElementById('staff-list');
-            
+
             // 解析玩家数据
             const players = parseUserData(Player);
             players.forEach(player => {
                 playerList.appendChild(createUserCard(player, 'Player'));
             });
-            
+
             // 解析工作人员数据
             const staff = parseUserData(Staff);
             staff.forEach(staffMember => {
@@ -319,4 +342,5 @@ wyrio	8984146	16.11
         document.addEventListener('DOMContentLoaded', initPage);
     </script>
 </body>
+
 </html>
